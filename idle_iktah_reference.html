@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Idle Iktah Reference</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#111;--bg2:#1c1c1c;--bg3:#242424;--border:#2e2e2e;--border2:#3a3a3a;
+  --text:#e0e0e0;--text2:#aaa;--text3:#666;
+  --green:#4c4;--green-bg:#1a3a1a;--green-border:#2a5a2a;
+  --blue:#5af;--blue-bg:#1a2a3a;--blue-border:#2a4a6a;
+  --amber:#fa5;--amber-bg:#3a2a00;--amber-border:#5a4000;
+  --red:#f55;--red-bg:#3a1a1a;--red-border:#5a2a2a;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+
+/* Header */
+.site-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.site-title{font-size:17px;font-weight:600;color:#fff;letter-spacing:-0.3px}
+.site-meta{font-size:12px;color:var(--text3)}
+
+/* Nav tabs */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:10px 14px;font-size:13px;cursor:pointer;background:transparent;border:none;color:var(--text3);border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.15s;font-family:inherit}
+.nav-btn:hover{color:var(--text)}
+.nav-btn.on{color:#fff;border-bottom-color:var(--blue);font-weight:500}
+
+/* Content */
+.content{max-width:860px;margin:0 auto;padding:20px}
+.sec{display:none}.sec.on{display:block}
+
+/* Cards */
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.card-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card-title .pill{font-size:11px;font-weight:400;padding:2px 8px;border-radius:20px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* Philosophy banner */
+.philosophy{background:linear-gradient(135deg,#1a2a1a,#1a1a2a);border:1px solid #2a3a2a;border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.philosophy p{font-size:13px;color:#ccc;line-height:1.6}
+.philosophy strong{color:var(--green)}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:2px}
+.step-num.blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+.step-num.amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.step-title{font-size:13px;font-weight:500;color:#fff}
+.step-desc{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5}
+
+/* Rows */
+.row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);gap:12px}
+.row:last-child{border-bottom:none}
+.row-left{flex:1}
+.row-title{font-size:13px;font-weight:500;color:#fff}
+.row-sub{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.5}
+
+/* Badges */
+.badge{font-size:11px;padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;font-weight:500;display:inline-block}
+.badge.g{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge.b{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+.badge.a{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge.r{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.badge.gr{background:var(--bg2);color:var(--text3);border:1px solid var(--border2)}
+
+/* Section label */
+.sl{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin:14px 0 6px;padding-top:6px}
+
+/* Note */
+.note{font-size:12px;color:var(--text3);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);line-height:1.5}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+th{background:var(--bg2);color:var(--text3);padding:6px 8px;text-align:left;border:1px solid var(--border);font-weight:500;font-size:11px}
+td{padding:6px 8px;border:1px solid var(--border);color:var(--text2)}
+tr:nth-child(even) td{background:var(--bg2)}
+
+/* Editable work order values */
+.editable{border:1px dashed var(--border2);border-radius:4px;padding:1px 5px;cursor:text;min-width:44px;display:inline-block;color:#fff;font-size:13px;font-weight:500;text-align:right}
+.editable:focus{outline:none;border-color:var(--text2)}
+
+/* Run history */
+.run-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.run-row:last-child{border-bottom:none}
+.run-num{font-size:13px;font-weight:600;color:#fff;min-width:28px}
+.run-time{font-size:12px;color:var(--text3);min-width:58px}
+.run-skills{font-size:12px;color:var(--text2);flex:1}
+.run-note{font-size:11px;color:var(--text3);text-align:right;min-width:120px}
+
+/* AFK blocks */
+.afk-block{border-left:2px solid var(--green-border);padding:8px 12px;margin-bottom:8px;background:var(--bg2);border-radius:0 8px 8px 0}
+.afk-title{font-size:13px;font-weight:500;color:#fff}
+.afk-desc{font-size:12px;color:var(--text2);margin-top:3px}
+
+/* Add button */
+.add-btn{font-size:12px;padding:5px 12px;border:1px solid var(--border2);border-radius:20px;background:var(--bg2);color:var(--text2);cursor:pointer;margin-top:12px;font-family:inherit}
+.add-btn:hover{color:#fff;border-color:var(--text2)}
+
+/* Mobile tweaks */
+@media(max-width:600px){
+  .content{padding:12px}
+  .run-note{display:none}
+  .site-header{padding:10px 14px}
+  .nav{padding:0 10px}
+}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div>
+    <div class="site-title">Idle Iktah Reference</div>
+    <div class="site-meta">Run 15 · Legacy 14 · 700% · 13 perks</div>
+  </div>
+  <div class="site-meta" id="run-tag">WC/Mine/Fish/Gather/Hunt/Land 90% · Cook 70% · Tail 90%</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn on" onclick="show('loop',this)">Core Loop</button>
+  <button class="nav-btn" onclick="show('combat',this)">Combat</button>
+  <button class="nav-btn" onclick="show('potions',this)">Potions</button>
+  <button class="nav-btn" onclick="show('wo',this)">Work Orders</button>
+  <button class="nav-btn" onclick="show('afk',this)">AFK Guide</button>
+  <button class="nav-btn" onclick="show('runs',this)">Run History</button>
+  <button class="nav-btn" onclick="show('confirmed',this)">Mechanics</button>
+  <button class="nav-btn" onclick="show('open',this)">Open Questions</button>
+</div>
+
+<div class="content">
+
+<!-- CORE LOOP -->
+<div id="loop" class="sec on">
+  <div class="philosophy">
+    <p><strong>Core philosophy:</strong> Non-combat → unlock efficient combat → farm ethereal eyes → Haste Tea (50% non-combat speed) → turbocharge non-combat → repeat. Rush eyes every run. Haste Tea is too effective not to use.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Main engine <span class="pill">Cedar → Oil → Cores → Seeker → Everything</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-num blue">1</div><div><div class="step-title">Cedar woodcutting (90%)</div><div class="step-desc">2 logs/action · pine knots 7.9% · powpow ~5.7% · salmonberries ~31% · satchels · nettles via landkeeping · Community doubles everything. Mask+Seeker only = ~14% rare rate · full Verdant 4pc = ~26%.</div></div></div>
+      <div class="step"><div class="step-num blue">2</div><div><div class="step-title">Pine knots → oil → enchanting offerings → all 4 cores</div><div class="step-desc">600 pine knots → 15k oil (25/knot via Electricity). Offer anything in bulk immediately — enchanting level doesn't affect core rates. Requires Enchanting 60 (52 with mask + merchant potion).</div></div></div>
+      <div class="step"><div class="step-num blue">3</div><div><div class="step-title">A few Seeker Potions to bootstrap</div><div class="step-desc">Best early source: fishing merchant then potion merchant. Stretch early potions with blueberry syrup (+90s) and maple syrup (+3 min). Maple mainly useful before offering engine online. Once engine running, potions never a bottleneck.</div></div></div>
+      <div class="step"><div class="step-num blue">4</div><div><div class="step-title">Seeker + Verdant 4pc + Mask → ~26% cedar rare drop rate</div><div class="step-desc">Mask+Seeker only = ~14%. Verdant gloves/top/bottom/boots = +80% non-combat rare drops. Exact stacking formula unconfirmed. Verdant from Bloom festival: pieces 1-3 at 20/40/60 currency · gloves = 1% drop · hat skipped (Mask better).</div></div></div>
+      <div class="step"><div class="step-num blue">5</div><div><div class="step-title">Tailoring + fishing → markers → Gilded Satchels → 4 Forgotten gear pieces</div><div class="step-desc">250 markers = 1 guaranteed Gilded Satchel (lv5 LK mentee). Only 4 pieces needed — hat slot = Mask always, cape slot = Cryptid Cape for rare mob farming. Save/load: 60-70 satchels sufficient at ~5% rate. Repairs need tailoring + hunting trap materials.</div></div></div>
+      <div class="step"><div class="step-num blue">6</div><div><div class="step-title">Gathering (90%) → tide rush to lv75+</div><div class="step-desc">4× XP + 50% speed + 99% high tide = ~4M XP/hr. Use lv82 + gathering potion +8 + mask = effective lv90 for max community mentoring XP locked in. Levels gathering mentor → materials on demand.</div></div></div>
+      <div class="step"><div class="step-num blue">7</div><div><div class="step-title">Gold Rush → gold chain → crafting/smithing/mining XP simultaneously</div><div class="step-desc">Gold ore → mining XP · bars → smithing XP · rings → crafting XP · gold armor = day 1 combat set. Jade tools bypass smithing entirely (~42 jade total: 10×4 tools + 2 rings). Seeker + Hydraulic Mining sufficient jade supply.</div></div></div>
+      <div class="step"><div class="step-num blue">8</div><div><div class="step-title">Cooking (60-70%) — can bottleneck at high run speeds</div><div class="step-desc">Best speed booster is the lv90 gathering item. Don't neglect cooking allocation at high legacy counts.</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Inheritance (3 slots)</div>
+    <div class="row"><div class="row-left"><div class="row-title">Alchemist Mask</div><div class="row-sub">2× potion potency · lowers effective lv req by 8 · from Tamah Shaman · equip for combat potion doubling during grind, not Forgotten gear</div></div><span class="badge g">Keep forever</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Cedar Dugouts (10k+)</div><div class="row-sub">3 per merchant unlock · Priority: Potion → Bothad → Royal · all 3 slots: 100% appearance · +50% goods · 25% rare goods</div></div><span class="badge g">Keep forever</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Shells (750k+)</div><div class="row-sub">Main merchant currency. Elderwood baskets may replace eventually — still testing.</div></div><span class="badge a">Review eventually</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">All 13 perks (run 15)</div>
+    <div class="sl">Core — always take</div>
+    <div class="row"><div class="row-left"><div class="row-title">Electricity</div><div class="row-sub">25 oil per pine knot (instead of 5) — powers the offering engine</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Steamboats</div><div class="row-sub">Bypasses Citizen Involvement · Inn lv1 free → merchant access day 1</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Inheritance</div><div class="row-sub">3 item slots carried into new run</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Hydraulic Mining</div><div class="row-sub">2× ore drops · community + Hydraulic = 3 ores/action · gems stay at 2× in community (not 3)</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Assembly Line</div><div class="row-sub">Work orders 5 min instead of 20 · drops from gathering skills (normally crafting only) · stockpile before combat</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Arithmometer</div><div class="row-sub">2× XP potions → effective 4×. Never burn AFK.</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Homesteading</div><div class="row-sub">Elderwood Lodge + Bed (2nd best tier) · large bags all slots · 99 apple pies · good bed + easy pillow = short idle → dream chest → dream crystals</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Gold Rush</div><div class="row-sub">Gold unlocked from start · gold chain levels mining/smithing/crafting simultaneously · gold armor = day 1 combat set · much more useful than expected</div></div><span class="badge g">Core</span></div>
+    <div class="sl">Good — strong value</div>
+    <div class="row"><div class="row-left"><div class="row-title">Building Codes</div><div class="row-sub">2× mentoring drops including pine knots · ~24-25% double pine knot chance with full Seeker+Verdant+Mask stack</div></div><span class="badge b">Good</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Telegraph</div><div class="row-sub">50% base crit · Nana Pine's recipes (HP+XP gathering food) · Forest Force enchant lv33 (+1 forest value = more XP per kill)</div></div><span class="badge b">Good</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Canning</div><div class="row-sub">2× food HP — meaningful for early combat rush</div></div><span class="badge b">Good</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Sawmill</div><div class="row-sub">50% passive woodcutting speed while doing something else</div></div><span class="badge b">Good</span></div>
+    <div class="sl">Situational</div>
+    <div class="row"><div class="row-left"><div class="row-title">Rotary Press</div><div class="row-sub">1k XP books ×20 per merchant swap · useful to skip low XP/hr ranges · early combat stat books if lucky</div></div><span class="badge gr">Situational</span></div>
+    <div class="note">Not taken: Sawmill (run 15 has all 13 perks for first time). Rejected: Gold Rush (now core), Canning (now core).</div>
+  </div>
+</div>
+
+<!-- COMBAT -->
+<div id="combat" class="sec">
+  <div class="card">
+    <div class="card-title">Early combat rush — do this first every run</div>
+    <div class="row"><div class="row-left"><div class="row-title">Forest Force enchant (Telegraph) on spring event staff</div><div class="row-sub">+1 forest value on enemies = more XP per kill · available immediately if Bloom festival active</div></div><span class="badge g">Do first</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Gold armor (Gold Rush perk = day 1)</div><div class="row-sub">No smithing grind needed. Rotary Press exp books for early combat stats if lucky.</div></div><span class="badge g">Do first</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Canning food (2× HP) + easy early potions</div><div class="row-sub">Don't overthink gear — just push combat early</div></div><span class="badge g">Do first</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">First night → sleep → dream chest → dream crystals → vision potion → Reflected Realm</div><div class="row-sub">Always reliable. Homesteading bed + easy pillow = short idle sufficient. Don't wait for merchant vision potion — lucky bonus only.</div></div><span class="badge g">Key gate</span></div>
+    <div class="note">Rush ethereal eyes ASAP every run. Eyes → Haste Tea → 50% non-combat speed → everything accelerates.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Nested combat potion chain <span class="pill">common drops > rare drops</span></div>
+    <div class="note" style="margin-top:0;border-top:none;padding-top:0;margin-bottom:10px">Ethereal eyes + Tome of Lightning = COMMON drops. Moss + metal cores = RARE drops (11% each) needed to craft the potions. Potion of Provenance (2× common) is therefore the priority potion.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num amber">1</div><div><div class="step-title">Azurite Avenger quest → Potion of Provenance recipe (guaranteed)</div><div class="step-desc">Kill 10 Azurite Golems via azurite token in enchanting (needs azurite gloves). Do this early — 2× common drops covers eyes + Tome of Lightning.</div></div></div>
+      <div class="step"><div class="step-num amber">2</div><div><div class="step-title">Buy Prospector's Potions from merchant to seed rare drop chain</div><div class="step-desc">Also from Satchels and Pirate's Chests. 2× rare drops. Use to farm golem materials. Royal Chest sword enchant (+25-50% rare drops) helps here — see below.</div></div></div>
+      <div class="step"><div class="step-num amber">3</div><div><div class="step-title">Prospector's Potion → Elderwood Golems → Magic Moss (11% rare)</div><div class="step-desc">Elderwood token mob.</div></div></div>
+      <div class="step"><div class="step-num amber">4</div><div><div class="step-title">Magic Moss → craft Moss Potion (better 2× rare drops)</div></div></div>
+      <div class="step"><div class="step-num amber">5</div><div><div class="step-title">Moss Potion → Basalt Golems → Metal Cores (11% rare)</div><div class="step-desc">Basalt token mob.</div></div></div>
+      <div class="step"><div class="step-num amber">6</div><div><div class="step-title">Potion of Provenance → eyes + Tome of Lightning (both common drops)</div><div class="step-desc">High Councilor (lv80) for Tome — rare mob, use Headhunter Potion + Cryptid Cape to boost spawn. Reflected Realm for eyes. 3% chance to drop potion materials when crafting any potion (oil counts → triggers constantly).</div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Endgame damage build</div>
+    <div class="row"><div class="row-left"><div class="row-title">Crit rate: 82-97%</div><div class="row-sub">82% with Mask equipped (doubled combat potion effects, AFK grind) · 97% with Forgotten gear (10% base + 40% Telegraph + 47% gear)</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Royal Chest sword → +25% rare drops · double sword trick → +50%</div><div class="row-sub">Shadow Broker recipe converts sword → enchantment. Get 2 swords, convert one, add to other = +50% rare drops. 6 items in Royal Chest total, not all equally useful.</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Tome of Lightning</div><div class="row-sub">2× attack speed · common drop from High Councilor · 3k+ per run leftover</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Arborion token weapon</div><div class="row-sub">+50% dmg consuming elderwood logs OR +40% cedar · Enchanting lv75 · token: 1 massive log + 1 forest core + 50 strong cores · kill under 12s for drop (need Tome first)</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Ancient Combat Potion</div><div class="row-sub">+20% atk speed · +20% dmg · 50% faster enemy swap · 1 bone + 1 beast eye + 1 large claw · doubled by Mask</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">King's Claws → Spellbook</div><div class="row-sub">Left + Right Claw ~0.25% each from High Councilor · combine for Spellbook (2× atk speed) · needed before Arborion sub-12s kill</div></div><span class="badge g">Confirmed</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Rare mob hunting setup</div>
+    <div class="row"><div class="row-left"><div class="row-title">Headhunter Potion (lv33 alchemy)</div><div class="row-sub">1 rare shell + 1 turquoise · increases rare mob spawn · turquoise common from sunken chests (fishing) · easy to mass produce</div></div><span class="badge g">Easy</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Cryptid Cape</div><div class="row-sub">2 Sasquatch Fur + 1 turquoise · no crafting req · Sasquatch in Deep Forest (hidden mob, tough if low level, 100% fur drop) · also boosts rare mob spawns for High Councilor + quest rare mobs · use in cape slot over Forgotten gear piece</div></div><span class="badge b">Get early</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Rose Tinted Glasses</div><div class="row-sub">Reveals hidden mobs in list (info only — no spawn rate change) · from one of 4 Hatsmen mobs · zone unknown</div></div><span class="badge a">Optional QoL</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Reflected Realm mobs (unlocked by Vision Potion)</div>
+    <table>
+      <tr><th>Level</th><th>Drop</th><th>Notes</th></tr>
+      <tr><td>67</td><td>Ethereal eyes (common)</td><td>Entry level — manageable with gold armor</td></tr>
+      <tr><td>92</td><td>Ethereal eyes (common)</td><td></td></tr>
+      <tr><td>117</td><td>Ethereal eyes (common)</td><td></td></tr>
+      <tr><td>155</td><td>Ethereal eyes (common)</td><td>Rare mob</td></tr>
+    </table>
+    <div class="note">Eyes → Haste Tea (lv80 alchemy · 5 powpow powder + 1 eye) → 50% non-combat speed boost. Alchemy glove enchantment = 2× alchemy drops including eyes — get this ASAP.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Outerlands (30k markers · lv150)</div>
+    <div class="row"><div class="row-left"><div class="row-title">4 elemental sub-regions (Water/Fire/Earth/Forest)</div><div class="row-sub">Mobs have 2-3 elemental tokens (+50% to one combat stat each) · offset with matching gear · drops: element weapon, cape, half-tokens</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Sun/Moon bosses</div><div class="row-sub">Half-tokens → access · absurd defense from stacked boosts · only beatable with Lunar Sledge (10k markers, 100% hit on full moon) · drops best EXP items in game</div></div><span class="badge a">Full moon only</span></div>
+    <div class="note">Bow pieces from regions combine into high crit bow — not needed at 82-97% crit from other sources.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Bear hunting → Ancient Combat Potion ingredients</div>
+    <div class="row"><div class="row-left"><div class="row-title">Bears (work order track → Community hunt 2×)</div><div class="row-sub">Drops beast eyes, large claws, steak, blue leather. Eyes + claws easy supply.</div></div><span class="badge g">Easy</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Ancient bones</div><div class="row-sub">From mobs summoned by Primeval tokens (90/batch work order) · Alchemist Glove enchant = 2× mob drops including bones</div></div><span class="badge a">Slower</span></div>
+  </div>
+</div>
+
+<!-- POTIONS -->
+<div id="potions" class="sec">
+  <div class="card">
+    <div class="card-title">Skilling potions</div>
+    <div class="row"><div class="row-left"><div class="row-title">Seeker's Potion (lv76 · mask → lv68)</div><div class="row-sub">3× non-combat rare drops → 6× with mask · unlocked by maxing Gathering Mentee to 5 stars (NOT a level unlock) · does NOT boost combat drops</div></div><span class="badge g">Core</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Haste Tea (lv80 alchemy)</div><div class="row-sub">50% non-combat speed boost · 5 powpow powder + 1 ethereal eye · boosts ALL non-combat skills · the major unlock every run</div></div><span class="badge g">Rush this</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Skill speed potions (Enchanting/Smithing/Tailoring/Crafting)</div><div class="row-sub">+25% speed each · ~50% with Mask · why these skills don't need legacy allocation</div></div><span class="badge g">Passive</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Blueberry Syrup</div><div class="row-sub">+90s per potion · automated via work orders · 5 blueberries · always active</div></div><span class="badge g">Always on</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Maple Syrup</div><div class="row-sub">+3 min per potion · manual collect · mainly useful early run before offering engine online to stretch scarce Seeker Potions</div></div><span class="badge a">Early run only</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Combat potions</div>
+    <div class="row"><div class="row-left"><div class="row-title">Potion of Provenance — PRIORITY</div><div class="row-sub">2× common drops · GUARANTEED recipe from Azurite Avenger quest (kill 10 Azurite Golems) · most important — eyes and Tome are both common drops</div></div><span class="badge g">Priority 1</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Prospector's Potion</div><div class="row-sub">2× rare drops · from Satchels, Pirate's Chests, merchant · seeds golem farming chain · NOT Final Forage · NOT Royal Chest</div></div><span class="badge b">Chain seed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Moss Potion</div><div class="row-sub">Better 2× rare drops · crafted from Magic Moss (11% Elderwood Golems)</div></div><span class="badge b">Chain step 2</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Headhunter Potion (lv33)</div><div class="row-sub">Increases rare mob spawn · 1 rare shell + 1 turquoise</div></div><span class="badge b">Combat prep</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Ancient Combat Potion</div><div class="row-sub">+20% atk speed · +20% dmg · 50% faster enemy swap · 1 bone + 1 eye + 1 claw · doubled by Mask · unlock gate unknown</div></div><span class="badge a">Key combat</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Vision Potion</div><div class="row-sub">Unlocks Reflected Realm · 1 dream crystal + 1 mandrake · dream crystal from dream chest (first night, reliable) · potion merchant may drop vision potion directly (25% rare goods, not guaranteed)</div></div><span class="badge a">Rush early</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Royal Chest sword → +25% rare drops · double sword trick → +50%</div><div class="row-sub">Shadow Broker recipe converts sword → enchantment · get 2 swords, convert one, add to other</div></div><span class="badge b">Get it</span></div>
+    <div class="note">3% chance to drop potion materials when crafting any potion. Oil counts as a potion → triggers constantly. Supplements merchant supply between golem farming sessions.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">XP potion sources</div>
+    <div class="row"><div class="row-left"><div class="row-title">Passive hub</div><div class="row-sub">1 stored every 20 hours</div></div><span class="badge gr">Passive</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Potion vendor</div><div class="row-sub">2 every 6-7hr once unlocked · needs canoes + Inn upgrades</div></div><span class="badge b">Main source</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Quest rewards</div><div class="row-sub">Lump sums</div></div><span class="badge gr">One-time</span></div>
+    <div class="note">Arithmometer: 2× → effective 4×. Never burn AFK. Best on slowest-to-cap skill in 80-95 range, active play only.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Marker economy</div>
+    <div class="row"><div class="row-left"><div class="row-title">Best recipe</div><div class="row-sub">1 pillow + 1 roll + 1 cooked lingcod = 6 markers · community 2× = 12 · skill tree +1 perk = 12-13 avg · tailoring at very high % can become the bottleneck</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">100 markers — Salt</div></div><span class="badge g">Early buy</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Low cost — Feather finder · gem sack add-on · fog pond (early only)</div></div><span class="badge g">Worth it</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">250 markers — Gilded Satchel (guaranteed, lv5 LK mentee)</div></div><span class="badge b">Key unlock</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">10,000 markers — Lunar Sledge (100% hit on full moon)</div></div><span class="badge a">Full moon only</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">30,000 markers — Outerlands access</div></div><span class="badge a">Endgame</span></div>
+  </div>
+</div>
+
+<!-- WORK ORDERS -->
+<div id="wo" class="sec">
+  <div class="card">
+    <div class="card-title">Work order rates — lv5 mentee <span class="pill">click qty to edit</span></div>
+    <div class="note" style="margin-top:0;border-top:none;padding-top:0;margin-bottom:10px">Assembly Line: 5 min per batch (instead of 20). Drops from gathering skills via perk (normally crafting only). Stockpile before combat to craft potions mid-fight without leaving.</div>
+    <div class="sl">Woodcutting logs</div><div id="wo-logs"></div>
+    <div class="sl">Woodcutting boards</div><div id="wo-boards"></div>
+    <div class="sl">Mining ores</div><div id="wo-ores"></div>
+    <div class="sl">Gathering</div><div id="wo-gather"></div>
+    <div class="sl">Other</div><div id="wo-other"></div>
+    <div class="sl">Landkeeping (adds rare drop bonus to skill actions · salt: 120 elderwood / 240 cedar / ~360 maple = 180 salt)</div><div id="wo-land"></div>
+    <div class="sl">Cooked fish</div><div id="wo-fish"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Community woodcutting — 18m 45s confirmed data (~3,931 actions)</div>
+    <table>
+      <tr><th>Item</th><th>Count</th><th>Rate</th><th>Notes</th></tr>
+      <tr><td>Cedar logs</td><td>7,862</td><td>2/action</td><td>Community doubles · pine logs also 2/action confirmed</td></tr>
+      <tr><td>Salmonberry</td><td>1,235</td><td>~31%</td><td>8hp food · landkeeping drop</td></tr>
+      <tr><td>Nettles</td><td>1,269</td><td>~32%</td><td>Landkeeping only · 3 = nettle cordage for bows</td></tr>
+      <tr><td>Powpow powder</td><td>225</td><td>~5.7%</td><td>~2% base hidden + 2.5% skill tree + 1.21% LK satchel</td></tr>
+      <tr><td>Pine knots</td><td>311</td><td>7.9%</td><td>25 oil each via Electricity perk</td></tr>
+      <tr><td>Gem sacks</td><td>9</td><td>0.23%</td><td>5 gems each · 10 with mining merchant ring</td></tr>
+      <tr><td>Woodcutting satchels</td><td>6</td><td>0.15%</td><td></td></tr>
+      <tr><td>Rare coins</td><td>6</td><td>0.15%</td><td>Shadow broker currency</td></tr>
+      <tr><td>Big logs</td><td>16</td><td>0.4%</td><td>For canoes</td></tr>
+      <tr><td>Work orders</td><td>9</td><td>0.23%</td><td></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">Sunken chest loot (from fishing)</div>
+    <table>
+      <tr><th>Item</th><th>Qty</th><th>Rarity</th><th>Use</th></tr>
+      <tr><td>Turquoise</td><td>3</td><td><span class="badge g">Common</span></td><td>Headhunter Potion · Cryptid Cape</td></tr>
+      <tr><td>Ancient Coin</td><td>1</td><td><span class="badge a">Uncommon</span></td><td></td></tr>
+      <tr><td>Basalt Ore</td><td>10</td><td><span class="badge a">Uncommon</span></td><td></td></tr>
+      <tr><td>Seaweed</td><td>7</td><td><span class="badge a">Uncommon</span></td><td></td></tr>
+      <tr><td>Azurite Helm</td><td>1</td><td><span class="badge a">Uncommon</span></td><td>Early combat gear</td></tr>
+      <tr><td>Gold Gloves</td><td>1</td><td><span class="badge a">Uncommon</span></td><td>Early combat gear</td></tr>
+      <tr><td>Obsidian</td><td>3</td><td><span class="badge a">Uncommon</span></td><td></td></tr>
+      <tr><td>Fire Opal</td><td>2</td><td><span class="badge a">Uncommon</span></td><td></td></tr>
+      <tr><td>Sunstone</td><td>2</td><td><span class="badge a">Uncommon</span></td><td></td></tr>
+      <tr><td>Jade</td><td>1</td><td><span class="badge r">Rare</span></td><td>Jade tools (~42 total needed)</td></tr>
+      <tr><td>Fishing Hat</td><td>1</td><td><span class="badge r">Rare</span></td><td></td></tr>
+      <tr><td>Fishing Ring</td><td>1</td><td><span class="badge r">Rare</span></td><td></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- AFK GUIDE -->
+<div id="afk" class="sec">
+  <div class="card">
+    <div class="card-title">By duration</div>
+    <div class="afk-block"><div class="afk-title">Short (&lt;1hr) — Cedar woodcutting</div><div class="afk-desc">Best all-rounder. Feeds core loop, powpow, satchels, nettles, pine knots simultaneously.</div></div>
+    <div class="afk-block"><div class="afk-title">Medium (1-4hr) — Enchanting offerings</div><div class="afk-desc">If log stockpile available. Cores build fast. Level doesn't affect rates — offer anything in bulk.</div></div>
+    <div class="afk-block"><div class="afk-title">Long overnight — Fishing idle</div><div class="afk-desc">No potions wasted · Halibut stockpile + sunken chests → turquoise/jade/gems. Add ginger work order.</div></div>
+    <div class="afk-block"><div class="afk-title">Combat — fully AFK-friendly</div><div class="afk-desc">~3.2M XP/hr with Mask + doubled potions (82% crit). Stockpile work orders beforehand so potions keep flowing.</div></div>
+    <div class="afk-block"><div class="afk-title">Overnight work orders</div><div class="afk-desc">Blueberry jam (automated) · Seeker potion batches · Landkeeping boosts · Markers if fish stocked.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Before going AFK checklist</div>
+    <div class="row"><div class="row-left"><div class="row-title">Potion timer</div><div class="row-sub">Reapply Seeker if under 30 min · blueberry jam for +90s extension</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">Work orders</div><div class="row-sub">Queue blueberry jam or Seeker batches · stockpile extra before combat sessions</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">Merchant timer</div><div class="row-sub">If refreshing in under 1hr, do it before going AFK · free roll worth waiting 2hr for early run</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">Maple sap</div><div class="row-sub">5 seconds · +3 min per potion · mainly useful early run</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">XP potions</div><div class="row-sub">Never burn AFK — active sessions only on lagging skill in 80-95 range</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Festival calendar</div>
+    <table>
+      <tr><th>Festival</th><th>Dates</th><th>Comm 40</th><th>Comm 80</th><th>Comm 99</th></tr>
+      <tr><td>Bloom (Spring)</td><td>3/20–6/20</td><td>Bloom</td><td>+ Mountain Exp.</td><td>+ Fall Forage</td></tr>
+      <tr><td>Creek to Coast (Summer)</td><td>6/21–9/22</td><td>Creek to Coast</td><td>+ Bloom</td><td>+ Mountain Exp.</td></tr>
+      <tr><td>Fall Forage</td><td>9/23–12/20</td><td>Fall Forage</td><td>+ Creek to Coast</td><td>+ Bloom</td></tr>
+      <tr><td>Mountain Expedition (Winter)</td><td>12/21–3/19</td><td>Mountain Exp.</td><td>+ Fall Forage</td><td>+ Creek to Coast</td></tr>
+    </table>
+    <div class="note">Bloom inaccessible in winter at any community level. Community 99 needed during Creek to Coast to access Bloom in Fall Forage. Verdant gloves = 1% drop · pieces 1-3 at 20/40/60 currency (~2/game, seconds/game).</div>
+  </div>
+</div>
+
+<!-- RUN HISTORY -->
+<div id="runs" class="sec">
+  <div class="card">
+    <div class="card-title">Run history</div>
+    <div class="run-row"><div class="run-num">#1</div><div class="run-time">74d 15h</div><div class="run-skills">No allocation</div><div class="run-note">No perks</div></div>
+    <div class="run-row"><div class="run-num">#2</div><div class="run-time">63d 04h</div><div class="run-skills">Gathering 50%</div><div class="run-note">Inheritance added</div></div>
+    <div class="run-row"><div class="run-num">#3</div><div class="run-time">43d 07h</div><div class="run-skills">Gathering 30%, Tailoring 30%, Carpentry 40%</div><div class="run-note">Assembly Line · insufficient support</div></div>
+    <div class="run-row"><div class="run-num">#4</div><div class="run-time">24d 18h</div><div class="run-skills">Hunting 60%, WC 90%</div><div class="run-note">Arithmometer added</div></div>
+    <div class="run-row"><div class="run-num">#5</div><div class="run-time">19d 01h</div><div class="run-skills">Hunting 90%, Tailoring 90%, Alchemy 20%</div><div class="run-note">Electricity added</div></div>
+    <div class="run-row"><div class="run-num">#6</div><div class="run-time">10d 00h</div><div class="run-skills">WC 90%, Mining 90%, Smithing 70%</div><div class="run-note">Hydraulic Mining added</div></div>
+    <div class="run-row"><div class="run-num">#7</div><div class="run-time">8d 21h</div><div class="run-skills">WC 90%, Mining 90%, Smithing 90%, Landkeeping 30%</div><div class="run-note">Assembly Line re-added</div></div>
+    <div class="run-row"><div class="run-num">#8</div><div class="run-time">6d 21h</div><div class="run-skills">WC 90%, Mining 90%, Smithing 80%, Hunting 90%</div><div class="run-note">Building Codes added</div></div>
+    <div class="run-row"><div class="run-num">#9</div><div class="run-time">6d 12h</div><div class="run-skills">WC 80%, Mining 80%, Hunting 50%, Smithing 60%, Tailoring 50%, Enchanting 30%, Landkeeping 50%</div><div class="run-note">Homesteading added</div></div>
+    <div class="run-row"><div class="run-num">#10</div><div class="run-time">6d 12h</div><div class="run-skills">WC 90%, Gathering 90%, Hunting 90%, Landkeeping 90%, Mining 90%</div><div class="run-note">Telegraph · Outerlands cleared</div></div>
+    <div class="run-row"><div class="run-num">#11</div><div class="run-time">4d 01h</div><div class="run-skills">WC 90%, Mining 80%, Fishing 80%, Gathering 80%, Hunting 80%, Landkeeping 90%</div><div class="run-note">Gold Rush added</div></div>
+    <div class="run-row"><div class="run-num">#12</div><div class="run-time">4d 00h</div><div class="run-skills">WC 90%, Mining 90%, Fishing 90%, Gathering 90%, Hunting 90%, Landkeeping 90%, Enchanting 10%</div><div class="run-note">11 perks · 550%</div></div>
+    <div class="run-row"><div class="run-num">#13</div><div class="run-time">2d 20h</div><div class="run-skills">WC 80%, Mining 80%, Fishing 90%, Gathering 80%, Hunting 90%, Tailoring 90%, Landkeeping 90%</div><div class="run-note">12 perks · 600% · likely active weekend</div></div>
+    <div class="run-row"><div class="run-num">#14</div><div class="run-time">3d 19h</div><div class="run-skills">WC 80%, Mining 80%, Fishing 90%, Gathering 80%, Hunting 80%, Cooking 60%, Tailoring 90%, Landkeeping 90%</div><div class="run-note">13 perks · 650%</div></div>
+    <div class="run-row"><div class="run-num">#15</div><div class="run-time">current</div><div class="run-skills">WC 90%, Mining 90%, Fishing 90%, Gathering 90%, Hunting 90%, Cooking 70%, Tailoring 90%, Landkeeping 90%</div><div class="run-note">13 perks · 700% · all 13 perks first time</div></div>
+    <div class="note">Run times confounded by active vs passive play — 2d 20h (run 13) likely reflects active weekend. Not a reliable efficiency metric.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Legacy progression</div>
+    <div class="row"><div class="row-left"><div class="row-title">Each legacy = +50% · hard cap 90% per skill · each run = +1 legacy + 1 perk slot</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Run 15 = Legacy 14 = 700% · 13 perks active · 14th perk slot opens run 16</div></div><span class="badge g">Confirmed</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Quest unlock requirements</div>
+    <table>
+      <tr><th>Quest</th><th>Unlocks</th><th>Requirements</th></tr>
+      <tr><td>A Couple New Things</td><td>Tracking + Tailoring</td><td>Crafting 5 + 1× Baguette (rare Raccoon drop)</td></tr>
+      <tr><td>Working Wood</td><td>Carpentry</td><td>WC 20, Crafting 10, Total Level 80, 20× Hemlock Logs</td></tr>
+      <tr><td>Welcome Home</td><td>Home skill</td><td>WC 10, Smithing 5, Working Wood done</td></tr>
+      <tr><td>Land Enhancement</td><td>Landkeeping</td><td>Total Level 150 · no item turn-in</td></tr>
+      <tr><td>Trading Troubles</td><td>Dugout system</td><td>WC 30, Carpentry 30, Smithing 22, Crafting 20, 1× Iron Adze, 10× Cooked Steak</td></tr>
+      <tr><td>Citizen Involvement</td><td>Community</td><td>Total Level 200 · bypassed by Steamboats</td></tr>
+      <tr><td>A Stronger Core</td><td>Enchanting</td><td>Gathering 20, Alchemy 10, Total Level 60, 20× Cooked Camas Bulbs</td></tr>
+      <tr><td>Azurite Avenger</td><td>Potion of Provenance</td><td>Kill 10 Azurite Golems (azurite token in enchanting, needs azurite gloves)</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">Skill tree priorities (3 branches · ~1.2 stars/quest · respec 1→25→100 shells)</div>
+    <div class="row"><div class="row-left"><div class="row-title">5/5 pts — 5% double woodcutting/mining drops</div></div><span class="badge g">Priority 1</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">5/5 pts — +2.5% powpow powder from woodcutting/mining/gathering</div></div><span class="badge g">Priority 2</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Mid — every-X-potion gives back resources</div></div><span class="badge b">Good</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">~27 pts — jade tool unlock (still needs 80-85 crafting to make)</div></div><span class="badge a">Later</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">30% merchant discount</div></div><span class="badge gr">Low priority</span></div>
+  </div>
+</div>
+
+<!-- CONFIRMED MECHANICS -->
+<div id="confirmed" class="sec">
+  <div class="card">
+    <div class="card-title">Confirmed mechanics</div>
+    <div class="sl">Community + mining</div>
+    <div class="row"><div class="row-left"><div class="row-title">Community + Hydraulic Mining = 3 ores/action (not 2, not 4)</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Gems: 2/action with Hydraulic Mining · community adds no gem bonus</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Pine logs + cedar logs both 2/action in community</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Community woodcutting speed = woodcutting % only · not community %</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Enchanting + offerings</div>
+    <div class="row"><div class="row-left"><div class="row-title">Enchanting level doesn't affect ocean core rate — offer anything in bulk immediately</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Enchanting levels DO matter for alchemy glove enchantment (2× eye drops)</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Drops and rates</div>
+    <div class="row"><div class="row-left"><div class="row-title">Gilded Satchel → Forgotten Pack ~5% · 4 pieces needed (not 6) · save/load: 60-70 satchels sufficient</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Elderwood Golem: Magic Moss 11% rare · Basalt Golem: Metal Core 11% rare</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Tome of Lightning = common High Councilor drop · 3k+ leftover per run</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Powpow: ~2% base hidden + 2.5% skill tree + 1.21% LK satchel = ~5.7% total</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">3% chance to drop potion materials when crafting potions · oil counts as potion</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Items and gear</div>
+    <div class="row"><div class="row-left"><div class="row-title">Jade tools need ~42 jade total · Seeker + Hydraulic Mining sufficient · sunken chests supplement</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Cryptid Cape: 2 Sasquatch Fur + 1 Turquoise · no crafting req · Deep Forest (100% fur drop)</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Rose Tinted Glasses = info only · reveals hidden mobs in list · no spawn rate change</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Royal Chest sword +25% rare drops · double sword trick = +50% · Shadow Broker recipe</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Potions and quests</div>
+    <div class="row"><div class="row-left"><div class="row-title">Potion of Provenance = guaranteed Azurite Avenger quest reward · NOT crafted from metal cores</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Prospector's Potion from Satchels + Pirate's Chests · NOT Final Forage/Creek to Coast</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Prospector's Perception (Royal Chest enchant) ≠ Prospector's Potion (Satchel drop)</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Canoe + merchant system</div>
+    <div class="row"><div class="row-left"><div class="row-title">Canoe slot 1: 100% merchant appearance · slot 2: +20% goods/10% rare · slot 3: +30% goods/15% rare</div><div class="row-sub">Total with all 3: 100% appearance · +50% goods · 25% rare goods · must fill in order 1→2→3</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Dream crystals from dream chest (sleeping) = reliable every run · potion merchant drops vision potions directly but only at 25% rare goods chance</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Cooking + community mentoring</div>
+    <div class="row"><div class="row-left"><div class="row-title">Cooking can bottleneck at high run speeds · best speed booster is lv90 gathering item</div></div><span class="badge g">Confirmed</span></div>
+    <div class="row"><div class="row-left"><div class="row-title">Community mentoring XP locked in at effective skill level: lv82 + gathering potion +8 + mask = effective lv90 → max XP per action without skill advancing</div></div><span class="badge g">Confirmed</span></div>
+    <div class="sl">Never assume</div>
+    <div class="row"><div class="row-left"><div class="row-title">Seeker's Potion does NOT boost combat drops — non-combat skill rare drops only</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">Community % does NOT speed up woodcutting inside community screen</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">Never suggest more than 90% into any skill — hard cap</div></div></div>
+    <div class="row"><div class="row-left"><div class="row-title">Do not invent quest names, item names, or drop rates</div></div></div>
+  </div>
+</div>
+
+<!-- OPEN QUESTIONS -->
+<div id="open" class="sec">
+  <div class="card">
+    <div class="card-title">Open questions — do not guess at these</div>
+    <div id="open-list">
+      <div class="row"><div class="row-left"><div class="row-title">Ancient Combat Potion unlock gate</div><div class="row-sub">Recipe confirmed (1 bone + 1 eye + 1 claw) but how it's unlocked is unknown</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Alchemy glove enchantment — exact enchanting level required</div><div class="row-sub">Confirmed gives 2× alchemy drops including eyes · level threshold unknown</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Potion merchant unlock mechanic</div><div class="row-sub">Using merchants more may unlock better stock · higher skill level may improve offerings · alchemy always high via oil pipeline so probably always well stocked · not fully understood</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Is vision potion in the 25% rare goods pool or standard merchant stock?</div><div class="row-sub">Determines how reliably merchant supplements the dream chest route</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Exact Verdant + Seeker + Mask stacking math</div><div class="row-sub">~14% mask+seeker only · ~26% full stack · exact formula unconfirmed</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Sun/Moon boss elemental token combinations</div><div class="row-sub">Complex stacked boosts · examples unconfirmed</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Hatsmen zone name and level</div><div class="row-sub">4 hatsmen mobs · drops Rose Tinted Glasses · location unknown</div></div><span class="badge r">Unknown</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Cooked fish work order rates</div><div class="row-sub">Insufficient data</div></div><span class="badge a">Placeholder</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Red fir boards work order rate</div><div class="row-sub">Probably ~300 · unconfirmed</div></div><span class="badge a">Placeholder</span></div>
+      <div class="row"><div class="row-left"><div class="row-title">Powpow base rate confirmation</div><div class="row-sub">~2% estimated from back-calculation · check before spending skill tree points</div></div><span class="badge a">Test</span></div>
+    </div>
+    <button class="add-btn" onclick="addOQ()">+ Add question</button>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+const woData={
+  logs:[{n:'Red fir',q:300,d:'Box traps'},{n:'Oak',q:300,d:'Pitfall traps'},{n:'Maple',q:300,d:'Normal cores · offerings · ocean cores'},{n:'Cedar',q:300,d:'Strong cores · offerings · ocean cores'},{n:'Elderwood',q:180,d:'Elderwood rings · golems'}],
+  boards:[{n:'Red fir boards',q:300,d:'Red fir dugouts early',u:true},{n:'Cedar boards',q:300,d:'Cedar dugout for exp'},{n:'Elderwood boards',q:240,d:'Chests · not much needed'}],
+  ores:[{n:'Silver',q:180,d:''},{n:'Mithril',q:180,d:'Mithril gloves · azurite golems'},{n:'Gold',q:180,d:'Rings · armor · crafting XP chain'},{n:'Basalt',q:150,d:'Basalt gloves · metal cores (11% rare drop)'},{n:'Kynite',q:120,d:''}],
+  gather:[{n:'Cattail',q:450,d:'Pitfall traps'},{n:'Chanterelle',q:360,d:'Exp food'},{n:'Blueberry',q:360,d:'Syrup +90s per potion'},{n:'Bolete',q:300,d:'Exp food'},{n:'Ginger',q:225,d:'Cooking boost · exp food'},{n:'Truffle',q:180,d:'Exp food · cooking boost'},{n:'Bear',q:200,d:'Ancient potions · steak · beast eyes · large claws'}],
+  other:[{n:'Cedar rope',q:180,d:'Elderwood baskets'},{n:'Oil',q:15000,d:'600 pine knots → 15k oil (Electricity · 25 oil/knot)'},{n:'Primeval token',q:90,d:'Ancient bones for Ancient Combat Potion'},{n:'Basalt token',q:90,d:'Metal cores (11% rare · boosted by Moss Potion)'},{n:'Elderwood token',q:90,d:'Magic Moss (11% rare · boosted by Prospector\'s Potion)'}],
+  land:[{n:'Red fir (LK)',q:360,d:'Landkeeping boost'},{n:'Oak (LK)',q:360,d:'Landkeeping boost'},{n:'Maple (LK)',q:360,d:'Landkeeping boost'},{n:'Cedar (LK)',q:360,d:'Landkeeping boost · powpow 1.21%'},{n:'Elderwood (LK)',q:225,d:'Landkeeping boost'},{n:'Gold (LK)',q:200,d:''},{n:'Kynite (LK)',q:150,d:''}],
+  fish:[{n:'Halibut',q:138,d:'Exp food'},{n:'Lingcod',q:90,d:'Exp food · marker recipe'},{n:'Cooked fish',q:'?',d:'Insufficient data',u:true}]
+};
+
+function renderWO(id,arr){
+  document.getElementById('wo-'+id).innerHTML=arr.map(r=>`
+    <div class="row">
+      <div class="row-left"><div class="row-title">${r.n}</div>${r.d?`<div class="row-sub">${r.d}</div>`:''}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="editable" contenteditable="true" spellcheck="false">${r.q}</span>
+        ${r.u?`<span class="badge a">Unconfirmed</span>`:''}
+      </div>
+    </div>`).join('');
+}
+Object.keys(woData).forEach(k=>renderWO(k,woData[k]));
+
+function show(id,el){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  el.classList.add('on');
+}
+
+function addOQ(){
+  const q=prompt('Enter open question:');
+  if(!q)return;
+  const div=document.createElement('div');
+  div.className='row';
+  div.innerHTML=`<div class="row-left"><div class="row-title">${q}</div></div><span class="badge r">Unknown</span>`;
+  document.getElementById('open-list').appendChild(div);
+}
+</script>
+</body>
+</html>
